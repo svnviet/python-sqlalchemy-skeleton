@@ -2,6 +2,12 @@ import os, sys, platform
 from pathlib import Path
 from typing import Optional, List, Dict, Any
 import MetaTrader5 as mt5
+from util import label_retcode  # if split; here we already imported above
+
+from dtos import AccountDTO, SymbolInfoDTO, TickDTO, OrderRequestDTO, OrderResultDTO, TradeSide, OrderKind, PositionDTO, \
+    PendingOrderDTO
+from errors import TradingError, SymbolNotAvailable
+
 
 # Reuse DTOs & utils from the faux modules above (same file here)
 # from trading.dtos import *
@@ -20,6 +26,7 @@ def _clean_path(p: str | None) -> Optional[Path]:
 
 class MT5Gateway:
     """Concrete TradingGateway implementation for MetaTrader 5."""
+
     def __init__(self) -> None:
         self._initialized = False
 
@@ -98,7 +105,8 @@ class MT5Gateway:
             tp = round(price + req.tp_dist if req.side == TradeSide.BUY else price - req.tp_dist, si.digits)
 
         fill = si.filling_mode if si.filling_mode in (
-            getattr(mt5, "ORDER_FILLING_FOK", 0), getattr(mt5, "ORDER_FILLING_IOC", 1), getattr(mt5, "ORDER_FILLING_RETURN", 2)
+            getattr(mt5, "ORDER_FILLING_FOK", 0), getattr(mt5, "ORDER_FILLING_IOC", 1),
+            getattr(mt5, "ORDER_FILLING_RETURN", 2)
         ) else getattr(mt5, "ORDER_FILLING_IOC", 1)
 
         request = dict(
@@ -185,7 +193,8 @@ class MT5Gateway:
         pos = next((p for p in mt5.positions_get() or [] if p.ticket == position_ticket), None)
         if not pos:
             raise TradingError(f"Position {position_ticket} not found")
-        req = dict(action=mt5.TRADE_ACTION_SLTP, position=position_ticket, symbol=pos.symbol, sl=sl, tp=tp, comment="py-modify")
+        req = dict(action=mt5.TRADE_ACTION_SLTP, position=position_ticket, symbol=pos.symbol, sl=sl, tp=tp,
+                   comment="py-modify")
         res = mt5.order_send(req)
         return self._fmt_res(res)
 
@@ -221,7 +230,6 @@ class MT5Gateway:
                 retcode=-1, label="NO_RESULT", comment="", order=None, deal=None, price=None,
                 request_id=None, last_error=mt5.last_error(), raw={}
             )
-        from trading.util import label_retcode  # if split; here we already imported above
         return OrderResultDTO(
             retcode=res.retcode,
             label=label_retcode(res.retcode),
@@ -233,4 +241,3 @@ class MT5Gateway:
             last_error=mt5.last_error(),
             raw=getattr(res, "_asdict", lambda: {})(),
         )
-

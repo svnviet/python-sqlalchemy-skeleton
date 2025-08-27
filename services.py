@@ -1,7 +1,10 @@
-from typing import Iterable
+from dtos import OrderResultDTO, OrderRequestDTO, OrderKind, TradeSide, PendingOrderDTO, PositionDTO
+from interfaces import TradingGateway
+
 
 class TradingService:
     """High-level use-cases built on the TradingGateway."""
+
     def __init__(self, gw: TradingGateway) -> None:
         self.gw = gw
 

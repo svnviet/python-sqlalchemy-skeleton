@@ -1,5 +1,7 @@
 from typing import Protocol, Iterable
 
+from dtos import AccountDTO, SymbolInfoDTO, TickDTO, OrderRequestDTO, OrderResultDTO, PositionDTO, PendingOrderDTO
+
 
 class TradingGateway(Protocol):
     """Interface for any broker adapter (MT5, FIX, REST…)"""
