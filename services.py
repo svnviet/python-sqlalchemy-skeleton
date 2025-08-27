@@ -1,4 +1,5 @@
-from dtos import OrderResultDTO, OrderRequestDTO, OrderKind, TradeSide, PendingOrderDTO, PositionDTO
+from dtos import (OrderKind, OrderRequestDTO, OrderResultDTO, PendingOrderDTO,
+                  PositionDTO, TradeSide)
 from interfaces import TradingGateway
 
 
@@ -9,31 +10,83 @@ class TradingService:
         self.gw = gw
 
     # --- Basic buy/sell with SL/TP *distance* in price units ---
-    def buy(self, symbol: str, volume: float, *, sl_dist: float | None = None, tp_dist: float | None = None,
-            deviation: int = 120, comment: str = "py-buy") -> OrderResultDTO:
-        req = OrderRequestDTO(symbol=symbol, side=TradeSide.BUY, volume=volume,
-                              kind=OrderKind.MARKET, sl_dist=sl_dist, tp_dist=tp_dist,
-                              deviation=deviation, comment=comment)
+    def buy(
+        self,
+        symbol: str,
+        volume: float,
+        *,
+        sl_dist: float | None = None,
+        tp_dist: float | None = None,
+        deviation: int = 120,
+        comment: str = "py-buy"
+    ) -> OrderResultDTO:
+        req = OrderRequestDTO(
+            symbol=symbol,
+            side=TradeSide.BUY,
+            volume=volume,
+            kind=OrderKind.MARKET,
+            sl_dist=sl_dist,
+            tp_dist=tp_dist,
+            deviation=deviation,
+            comment=comment,
+        )
         return self.gw.market_order(req)
 
-    def sell(self, symbol: str, volume: float, *, sl_dist: float | None = None, tp_dist: float | None = None,
-             deviation: int = 120, comment: str = "py-sell") -> OrderResultDTO:
-        req = OrderRequestDTO(symbol=symbol, side=TradeSide.SELL, volume=volume,
-                              kind=OrderKind.MARKET, sl_dist=sl_dist, tp_dist=tp_dist,
-                              deviation=deviation, comment=comment)
+    def sell(
+        self,
+        symbol: str,
+        volume: float,
+        *,
+        sl_dist: float | None = None,
+        tp_dist: float | None = None,
+        deviation: int = 120,
+        comment: str = "py-sell"
+    ) -> OrderResultDTO:
+        req = OrderRequestDTO(
+            symbol=symbol,
+            side=TradeSide.SELL,
+            volume=volume,
+            kind=OrderKind.MARKET,
+            sl_dist=sl_dist,
+            tp_dist=tp_dist,
+            deviation=deviation,
+            comment=comment,
+        )
         return self.gw.market_order(req)
 
     # --- Pending orders ---
-    def place_pending(self, symbol: str, side: TradeSide, kind: OrderKind, price: float, volume: float,
-                      *, sl: float = 0.0, tp: float = 0.0, stoplimit_price: float | None = None,
-                      deviation: int = 120, comment: str = "py-pending") -> OrderResultDTO:
-        req = OrderRequestDTO(symbol=symbol, side=side, volume=volume, kind=kind,
-                              price=price, stoplimit_price=stoplimit_price, sl=sl, tp=tp,
-                              deviation=deviation, comment=comment)
+    def place_pending(
+        self,
+        symbol: str,
+        side: TradeSide,
+        kind: OrderKind,
+        price: float,
+        volume: float,
+        *,
+        sl: float = 0.0,
+        tp: float = 0.0,
+        stoplimit_price: float | None = None,
+        deviation: int = 120,
+        comment: str = "py-pending"
+    ) -> OrderResultDTO:
+        req = OrderRequestDTO(
+            symbol=symbol,
+            side=side,
+            volume=volume,
+            kind=kind,
+            price=price,
+            stoplimit_price=stoplimit_price,
+            sl=sl,
+            tp=tp,
+            deviation=deviation,
+            comment=comment,
+        )
         return self.gw.pending_order(req)
 
     # --- SL/TP updates & closing ---
-    def modify_sltp(self, position_ticket: int, *, sl: float, tp: float) -> OrderResultDTO:
+    def modify_sltp(
+        self, position_ticket: int, *, sl: float, tp: float
+    ) -> OrderResultDTO:
         return self.gw.modify_position_sltp(position_ticket, sl=sl, tp=tp)
 
     def close(self, position_ticket: int, *, deviation: int = 120) -> OrderResultDTO:

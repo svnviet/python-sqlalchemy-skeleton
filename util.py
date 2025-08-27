@@ -1,4 +1,5 @@
 from typing import Dict
+
 import MetaTrader5 as mt5
 
 
