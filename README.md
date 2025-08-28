@@ -1,1 +1,1 @@
-# flask-sqlalchemy-alembic
+# python-sqlalchemy-alembic

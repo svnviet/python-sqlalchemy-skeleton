@@ -11,6 +11,9 @@ flask-sqlalchemy-alembic/app/app.db
 *.so
 
 # Distribution / packaging
+/.idea/*
+.idea/trading.iml
+.idea/vcs.xml
 .Python
 build/
 develop-eggs/

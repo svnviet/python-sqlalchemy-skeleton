@@ -2,11 +2,9 @@
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import String, BigInteger, Integer, Float, Index, UniqueConstraint, TIMESTAMP, text
-
-
-class Base(DeclarativeBase): pass
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, BigInteger, Integer, Float, Index, TIMESTAMP, text
+from config.db import Base
 
 
 @dataclass
