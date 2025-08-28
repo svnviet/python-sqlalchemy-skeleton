@@ -25,7 +25,9 @@ class OrderRow(Base):
     retcode_label: Mapped[Optional[str]] = mapped_column(String)
     ret_comment: Mapped[Optional[str]] = mapped_column(String)
     request_id: Mapped[Optional[int]] = mapped_column(BigInteger)
-    created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("now()"))
+    created_at: Mapped[datetime] = mapped_column(
+        TIMESTAMP(timezone=True), server_default=text("now()")
+    )
 
 
 Index("ix_orders_symbol_created_at", OrderRow.symbol, OrderRow.created_at)
@@ -59,7 +61,9 @@ class PositionSnapRow(Base):
     sl: Mapped[Optional[float]] = mapped_column(Float)
     tp: Mapped[Optional[float]] = mapped_column(Float)
     profit: Mapped[Optional[float]] = mapped_column(Float)
-    snapped_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("now()"))
+    snapped_at: Mapped[datetime] = mapped_column(
+        TIMESTAMP(timezone=True), server_default=text("now()")
+    )
 
 
 Index("ix_possnaps_symbol_time", PositionSnapRow.symbol, PositionSnapRow.snapped_at)

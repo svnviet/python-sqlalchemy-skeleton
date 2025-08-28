@@ -5,12 +5,15 @@ from typing import Generator
 
 import os
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # e.g. /Users/vietnguyen/Projects/trading
+BASE_DIR = os.path.dirname(
+    os.path.abspath(__file__)
+)  # e.g. /Users/vietnguyen/Projects/trading
 DB_FILE = os.path.join(BASE_DIR, "trading.db")
 
 DATABASE_URL = f"sqlite:///{DB_FILE}"
 print(DATABASE_URL)
 # DATABASE_URL = "sqlite:///:memory:"   # for in-memory
+
 
 class Base(DeclarativeBase):
     pass

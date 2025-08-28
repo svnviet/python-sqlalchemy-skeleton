@@ -1,7 +1,14 @@
 from typing import Iterable, Protocol
 
-from dtos import (AccountDTO, OrderRequestDTO, OrderResultDTO, PendingOrderDTO,
-                  PositionDTO, SymbolInfoDTO, TickDTO)
+from dtos import (
+    AccountDTO,
+    OrderRequestDTO,
+    OrderResultDTO,
+    PendingOrderDTO,
+    PositionDTO,
+    SymbolInfoDTO,
+    TickDTO,
+)
 
 
 class TradingGateway(Protocol):
@@ -15,18 +22,29 @@ class TradingGateway(Protocol):
         server: str | None = None,
         path: str | None = None
     ) -> None: ...
+
     def shutdown(self) -> None: ...
+
     def account_info(self) -> AccountDTO: ...
+
     def ensure_symbol(self, symbol: str) -> SymbolInfoDTO: ...
+
     def tick(self, symbol: str) -> TickDTO: ...
+
     def market_order(self, req: OrderRequestDTO) -> OrderResultDTO: ...
+
     def pending_order(self, req: OrderRequestDTO) -> OrderResultDTO: ...
+
     def positions(self, symbol: str | None = None) -> list[PositionDTO]: ...
+
     def orders(self, symbol: str | None = None) -> list[PendingOrderDTO]: ...
+
     def modify_position_sltp(
         self, position_ticket: int, *, sl: float, tp: float
     ) -> OrderResultDTO: ...
+
     def close_position(
         self, position_ticket: int, deviation: int = 120
     ) -> OrderResultDTO: ...
+
     def cancel_order(self, order_ticket: int) -> OrderResultDTO: ...

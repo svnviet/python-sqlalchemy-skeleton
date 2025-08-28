@@ -22,8 +22,5 @@ class Config:
     logging.basicConfig(
         level=LOG_LEVEL,
         format=LOG_FORMAT,
-        handlers=[
-            logging.FileHandler(LOG_FILE),
-            logging.StreamHandler()
-        ]
+        handlers=[logging.FileHandler(LOG_FILE), logging.StreamHandler()],
     )

@@ -1,4 +1,3 @@
-# trading/services/base.py
 from typing import Type, TypeVar, Generic, List, Optional
 from sqlalchemy.exc import NoResultFound
 from config.db import session_scope, Base
