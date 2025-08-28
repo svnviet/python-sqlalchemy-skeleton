@@ -1,11 +1,12 @@
 # migrations/env.py
 from logging.config import fileConfig
-from sqlalchemy import engine_from_config, pool
-from alembic import context
 
+from alembic import context
+from sqlalchemy import engine_from_config, pool
+
+import app.db_models  # <- make sure models are imported so Alembic sees them
 # Import your Base + models
 from config.db import Base
-import app.db_models  # <- make sure models are imported so Alembic sees them
 
 # Alembic Config object
 config = context.config

@@ -2,12 +2,14 @@
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
+
+from sqlalchemy import (TIMESTAMP, BigInteger, Float, Index, Integer, String,
+                        text)
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, BigInteger, Integer, Float, Index, TIMESTAMP, text
+
 from config.db import Base
 
 
-@dataclass
 class OrderRow(Base):
     __tablename__ = "orders"
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -33,7 +35,6 @@ class OrderRow(Base):
 Index("ix_orders_symbol_created_at", OrderRow.symbol, OrderRow.created_at)
 
 
-@dataclass
 class DealRow(Base):
     __tablename__ = "deals"
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -49,7 +50,6 @@ class DealRow(Base):
     time: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), nullable=False)
 
 
-@dataclass
 class PositionSnapRow(Base):
     __tablename__ = "positions_snapshots"
     id: Mapped[int] = mapped_column(primary_key=True)

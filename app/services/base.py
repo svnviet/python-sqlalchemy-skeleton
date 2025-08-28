@@ -1,6 +1,8 @@
-from typing import Type, TypeVar, Generic, List, Optional
+from typing import Generic, List, Optional, Type, TypeVar
+
 from sqlalchemy.exc import NoResultFound
-from config.db import session_scope, Base
+
+from config.db import Base, session_scope
 
 T = TypeVar("T", bound=Base)
 

@@ -1,11 +1,5 @@
-from dtos import (
-    OrderKind,
-    OrderRequestDTO,
-    OrderResultDTO,
-    PendingOrderDTO,
-    PositionDTO,
-    TradeSide,
-)
+from dtos import (OrderKind, OrderRequestDTO, OrderResultDTO, PendingOrderDTO,
+                  PositionDTO, TradeSide)
 from interfaces import TradingGateway
 
 

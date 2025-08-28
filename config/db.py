@@ -1,9 +1,9 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
+import os
 from contextlib import contextmanager
 from typing import Generator
 
-import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 BASE_DIR = os.path.dirname(
     os.path.abspath(__file__)

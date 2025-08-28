@@ -5,18 +5,9 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import MetaTrader5 as mt5
-
-from dtos import (
-    AccountDTO,
-    OrderKind,
-    OrderRequestDTO,
-    OrderResultDTO,
-    PendingOrderDTO,
-    PositionDTO,
-    SymbolInfoDTO,
-    TickDTO,
-    TradeSide,
-)
+from dtos import (AccountDTO, OrderKind, OrderRequestDTO, OrderResultDTO,
+                  PendingOrderDTO, PositionDTO, SymbolInfoDTO, TickDTO,
+                  TradeSide)
 from errors import SymbolNotAvailable, TradingError
 from util import label_retcode  # if split; here we already imported above
 

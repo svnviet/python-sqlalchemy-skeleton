@@ -1,14 +1,7 @@
 from typing import Iterable, Protocol
 
-from dtos import (
-    AccountDTO,
-    OrderRequestDTO,
-    OrderResultDTO,
-    PendingOrderDTO,
-    PositionDTO,
-    SymbolInfoDTO,
-    TickDTO,
-)
+from dtos import (AccountDTO, OrderRequestDTO, OrderResultDTO, PendingOrderDTO,
+                  PositionDTO, SymbolInfoDTO, TickDTO)
 
 
 class TradingGateway(Protocol):
